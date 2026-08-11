@@ -1,13 +1,19 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        res = defaultdict(list) 
-        for s in strs: 
-            key = [0] * 26 
-            for c in s: 
-                key[ord(c) - ord('a')] += 1 
+        anagrams = defaultdict(list)
+        for word in strs: 
+            word_token = self.tokenize(word)
+            anagrams[word_token].append(word)
 
-            res[tuple(key)].append(s) 
+        return list(anagrams.values())
+
+
+    def tokenize(self, word: str) -> Dict[str, int]:
+        arr = [0] * 26 
+        for char in word: 
+            arr[ord(char) - ord('a')] += 1
+
+        return tuple(arr)
         
-        return list(res.values())
-                
+
         
